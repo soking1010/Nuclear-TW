@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>終端機風格測試頁面</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #00ff00;
+            --dim-text: #008800;
+            --highlight: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .terminal {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            border-bottom: 1px solid var(--text-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        .prompt::before {
+            content: '> ';
+            color: var(--dim-text);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: var(--text-color);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .output {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .status-line {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 5px 20px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="header">
+            Terminal Test v1.0.0
+        </div>
+        
+        <div class="prompt">
+            系統初始化中...<span class="cursor"></span>
+        </div>
+
+        <div class="output">
+            > 歡迎來到終端機風格測試頁面
+            > 這是一個簡單的黑底綠字介面
+            > 具有閃爍游標效果
+        </div>
+
+        <div class="prompt">
+            等待輸入指令<span class="cursor"></span>
+        </div>
+    </div>
+
+    <div class="status-line">
+        狀態: 正常運行中 | 記憶體使用率: 42% | CPU 負載: 1.2
+    </div>
+</body>
+</html>

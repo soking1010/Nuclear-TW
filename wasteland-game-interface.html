@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>廢土傳承：後核紀元台灣</title>
+    <style>
+        :root {
+            --background-color: #1A1A1A;
+            --panel-color: #2D2D2D;
+            --radiation-green: #4AFF4A;
+            --highlight-color: #FFE066;
+            --danger-color: #FF4A4A;
+            --tech-blue: #4A66FF;
+            --text-color: #CCCCCC;
+            --border-glow: 0 0 5px var(--radiation-green);
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: var(--panel-color);
+            padding: 0 8px;
+            border-bottom: 1px solid var(--radiation-green);
+            box-shadow: var(--border-glow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 28px;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-top h1 {
+            margin: 0;
+            font-size: 0.9em;
+            line-height: 1;
+        }
+
+        .resource-display {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 12px;
+        }
+
+        .resource {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 1rem;
+        }
+
+        .resource:not(:last-child):after {
+            content: "｜";
+            margin-left: 10px;
+            color: var(--text-color);
+        }
+
+        .resource-value {
+            color: var(--radiation-green);
+        }
+
+        .status-high {
+            color: var(--radiation-green);
+        }
+
+        .status-medium {
+            color: var(--highlight-color);
+        }
+
+        .status-low {
+            color: var(--danger-color);
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .side-panel {
+            width: 30%;
+            background-color: var(--panel-color);
+            padding: 10px;
+            border-right: 1px solid var(--radiation-green);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--radiation-green) var(--panel-color);
+        }
+
+        .side-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .side-panel::-webkit-scrollbar-track {
+            background: var(--panel-color);
+        }
+
+        .side-panel::-webkit-scrollbar-thumb {
+            background-color: var(--radiation-green);
+            border-radius: 4px;
+            border: 2px solid var(--panel-color);
+        }
+
+        .main-content {
+            width: 70%;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .narrative {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .action-section {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 97%;
+            background-color: var(--panel-color);
+            padding: 10px 15px 15px;
+            border-top: 1px solid var(--radiation-green);
+            box-shadow: 0 -2px 10px rgba(74, 255, 74, 0.2);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .action-section.collapsed {
+            transform: translateY(calc(100% - 80px));
+        }
+
+        .action-section.collapsed .panel-title {
+            margin: 5px 60px 15px 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .main-content {
+            position: relative;
+            padding-bottom: 200px;
+        }
+
+        .action-section .toggle-button {
+            position: absolute;
+            top: 8px;
+            right: 20px;
+            background-color: var(--panel-color);
+            border: 1px solid var(--radiation-green);
+            color: var(--radiation-green);
+            padding: 5px 15px;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .action-section .toggle-button:hover {
+            background-color: rgba(74, 255, 74, 0.1);
+        }
+
+        .main-content {
+            padding-bottom: 200px;
+        }
+
+
+
+        .status-bar {
+            background-color: var(--panel-color);
+            padding: 5px 10px;
+            border-top: 1px solid var(--radiation-green);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+        }
+
+        .panel-title {
+            color: var(--radiation-green);
+            border-bottom: 1px dashed var(--radiation-green);
+            padding: 10px 20px 8px;
+            margin: 5px 10px 8px 4px;
+            font-size: 1.1rem;
+        }
+
+        .family-status {
+            margin-bottom: 15px;
+        }
+
+        .health-bar {
+            height: 10px;
+            background-color: var(--danger-color);
+            margin: 5px 0;
+        }
+
+        .health-bar-fill {
+            height: 100%;
+            width: 92%;
+            background-color: var(--radiation-green);
+        }
+
+        .family-members {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .family-member {
+            padding: 10px;
+            border: 1px dotted #444;
+            border-radius: 4px;
+            background-color: rgba(74, 255, 74, 0.05);
+        }
+
+        .member-name {
+            font-weight: bold;
+        }
+
+        .member-status {
+            font-size: 0.8rem;
+            color: #AAA;
+        }
+
+        .member-mutation {
+            font-size: 0.8rem;
+            color: var(--radiation-green);
+        }
+
+        .narrative {
+            line-height: 1.6;
+        }
+
+        .narrative p {
+            margin-bottom: 15px;
+        }
+
+        .dialogue {
+            color: var(--tech-blue);
+        }
+
+        .discovery {
+            color: var(--radiation-green);
+            font-style: italic;
+        }
+
+        .danger {
+            color: var(--danger-color);
+            font-weight: bold;
+        }
+
+        .echo-container {
+            border: 1px solid var(--tech-blue);
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: rgba(74, 102, 255, 0.1);
+        }
+
+        .echo-title {
+            color: var(--tech-blue);
+            margin-top: 0;
+            font-size: 1rem;
+            border-bottom: 1px solid var(--tech-blue);
+            padding-bottom: 5px;
+        }
+
+        .echo-message {
+            font-style: italic;
+            color: #AAA;
+        }
+
+        .action-button {
+            display: block;
+            width: 100%;
+            max-width: calc(100% - 20px);
+            padding: 12px 35px;
+            margin-bottom: 10px;
+            background-color: var(--panel-color);
+            border: 1px solid var(--highlight-color);
+            color: var(--highlight-color);
+            text-align: left;
+            cursor: pointer;
+            white-space: normal;
+            word-wrap: break-word;
+            line-height: 1.6;
+        }
+
+        .action-button:hover {
+            background-color: rgba(255, 224, 102, 0.1);
+        }
+
+        .resource-display {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .resource {
+            text-align: center;
+        }
+
+        .resource-label {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        .resource-value {
+            font-weight: bold;
+        }
+
+        .resource-status {
+            font-size: 0.7rem;
+        }
+
+        .status-low {
+            color: var(--danger-color);
+        }
+
+        .status-medium {
+            color: var(--highlight-color);
+        }
+
+        .status-high {
+            color: var(--radiation-green);
+        }
+
+        .blinking {
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .ascii-art {
+            font-family: monospace;
+            white-space: pre;
+            line-height: 1.2;
+            color: var(--radiation-green);
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .left-panel, .main-content, .right-panel {
+                width: 100%;
+                border: none;
+                border-bottom: 1px solid var(--radiation-green);
+                position: relative;
+                transition: max-height 0.3s ease-in-out;
+            }
+            
+            .panel-collapsed {
+                max-height: 50px;
+                overflow: hidden;
+            }
+            
+            .panel-toggle {
+                display: block;
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                background: var(--panel-color);
+                border: 1px solid var(--radiation-green);
+                color: var(--radiation-green);
+                padding: 5px 10px;
+                cursor: pointer;
+                z-index: 1;
+            }
+            
+            .action-button {
+                padding: 15px;
+                margin-bottom: 15px;
+                font-size: 1.1em;
+            }
+            
+            .resource-display {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .resource {
+                flex: 0 0 auto;
+                margin-right: 20px;
+                padding: 0 10px;
+            }
+            
+            .status-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .status-bar > div {
+                margin: 5px 0;
+            }
+            
+            .main-content {
+                max-height: none;
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-top">
+            <h1>廢土傳承：後核紀元台灣</h1>
+        </div>
+        <div class="resource-display">
+            <div class="resource">
+                <span>食物（<span class="status-medium">43</span>）</span>
+            </div>
+            <div class="resource">
+                <span>水（<span class="status-high">78</span>）</span>
+            </div>
+            <div class="resource">
+                <span>藥物（<span class="status-low">7</span>）</span>
+            </div>
+            <div class="resource">
+                <span>材料（<span class="status-medium">35</span>）</span>
+            </div>
+            <div class="resource">
+                <span>燃料（<span class="status-medium">29</span>）</span>
+            </div>
+            <div class="resource">
+                <span>彈藥（<span class="status-low">12</span>）</span>
+            </div>
+            <div class="resource">
+                <span>秋季 第17天</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="side-panel">
+            <div class="family-info">
+                <h2 class="panel-title">林氏家族 - 第2代</h2>
+                <div>家族成員: 6人 (3成年, 3未成年)</div>
+                
+                <div class="family-status">
+                    <div>領導者: 林維源 (33歲)</div>
+                    <div>健康狀態: 良好 (92/100)</div>
+                    <div class="health-bar">
+                        <div class="health-bar-fill"></div>
+                    </div>
+                    <div>階段: 中年期</div>
+                </div>
+                
+                <h3 class="panel-title">家族成員</h3>
+                <div class="family-members">
+                    <div class="family-member">
+                        <div class="member-name">林維源</div>
+                        <div class="member-status">33歲 - 領導者</div>
+                        <div class="member-mutation">亞健康型</div>
+                    </div>
+                    <div class="family-member">
+                        <div class="member-name">林國華</div>
+                        <div class="member-status">27歲 - 探索員</div>
+                        <div class="member-mutation">基因突變: 強化視力</div>
+                    </div>
+                    <div class="family-member">
+                        <div class="member-name">林美玉</div>
+                        <div class="member-status">25歲 - 醫護員</div>
+                        <div class="member-mutation">亞健康型</div>
+                    </div>
+                    <div class="family-member">
+                        <div class="member-name">林邵春</div>
+                        <div class="member-status">14歲 - 學徒</div>
+                        <div class="member-mutation">靈能潛力</div>
+                    </div>
+                    <div class="family-member">
+                        <div class="member-name">林小蓮</div>
+                        <div class="member-status">10歲</div>
+                        <div class="member-mutation">未知</div>
+                    </div>
+                    <div class="family-member">
+                        <div class="member-name">林女娃</div>
+                        <div class="member-status">2歲</div>
+                        <div class="member-mutation">未知</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ai-assistant">
+                <h2 class="panel-title">回音AI助手</h2>
+                
+                <div class="echo-container">
+                    <h3 class="echo-title">即時分析</h3>
+                    <p class="echo-message">檢測到商隊接近信號。根據過往數據，同安郊的商隊通常攜帶醫療物資和技術零件。目前家族醫療物資處於危急水平。</p>
+                    <p class="echo-message">警示：偵察到危險徵兆。匪徒疑似「黑旗」餘黨，此夥向以兇殘聞名。</p>
+                </div>
+                
+                <div class="echo-container">
+                    <h3 class="echo-title">家族記憶</h3>
+                    <p class="echo-message">先祖林建成遺訓：「黑旗餘黨畏懼火器，卻不畏談判。他們敬重展現實力的對手。」</p>
+                </div>
+                
+                <div class="echo-container">
+                    <h3 class="echo-title">策略建議</h3>
+                    <p class="echo-message">林國華的異能目力堪為最佳瞭望。若欲接納郊商，建議同時遣林邵春攜帶信號彈至東側制高點，以示威懾。</p>
+                </div>
+                
+                <div class="echo-container blinking">
+                    <h3 class="echo-title">任務提醒</h3>
+                    <p class="echo-message">當前要務：完成醫療所建設，尚缺技術零件三件</p>
+                    <p class="echo-message">遠程目標：蒐羅東部山區輿圖，尋覓淨土蹤跡</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="narrative">
+                    <div class="ascii-art">
+     _____     _     _     _____     _     _
+    |  _  |___| |___| |___|   __|___| |_ _| |___
+    |     |  _| | .'| | -_|__   | . | | | . |_ -|
+    |__|__|_| |_|__,|_|___|_____|___|_|_|___|___|
+                </div>
+                
+                <p>秋季的風帶著一絲刺骨的寒意，吹過你們周圍的隘門與刺竹城。這是核戰後的第52年，林氏家族在這片輻射廢土上掙扎求生已經兩代。</p>
+                
+                <p>你站在家族的望樓上，眺望著北方的枋寮平原廢墟。<span class="discovery">遠處的顆粒塵中，似乎有一小隊人馬正在靠近。</span></p>
+                
+                <p class="dialogue">"族長，郊商來了，"林國華站在你身旁，他那變異的眼睛閃著微弱的綠光，"看起來是「同安郊」的人，我認出了他們的旗幟。"</p>
+                
+                <p>這是個好消息。同安郊是少數幾個還維持著誠信的貿易團體，如同古時的三郊與三行。他們的到來意味著新的物資和情報。</p>
+                
+                <p>然而，就在你準備下令迎接時，林國華突然緊張起來。</p>
+                
+                <p class="dialogue">"等等...不對勁，"他睜著眼睛，"他們後面...有匪徒！是那些六堆來的土匪！"</p>
+                
+                <p class="danger">商隊正被一群騎著變異水牛的掠奪者追趕，看起來他們正試圖劫掠這支寶貴的商隊。這群掠奪者有十餘人，裝備精良，很可能是「黑旗軍」的殘餘隊伍。</p>
+                
+                <p>你必須迅速做出決定。讓商隊進入隘門可能會引來掠奪者的攻城；拒絕他們則意味著放棄珍貴的交易機會，也違背了廢土上的盟主互助原則。</p>
+                
+                <p>回音AI錄音筆在你口袋中發出輕微的振動，似乎想要提供建議。</p>
+                </div>
+                <div class="action-section">
+                    <h2 class="panel-title">可執行行動 (剩餘行動點: 3)</h2>
+                    <button class="action-button">1. 開啟隘門，接納郊商並佈防</button>
+                    <button class="action-button">2. 遣林國華與郊商接洽，探查虛實</button>
+                    <button class="action-button">3. 向郊商示警，勸其改道而行</button>
+                    <button class="action-button">4. 遣林邵春施放信號，召集鄰近莊社支援</button>
+                    <button class="action-button">5. 緊閉隘門，嚴守以待</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+
+    <script>
+        // 初始化行動面板的收合狀態
+        const actionSection = document.querySelector('.action-section');
+        const toggleButton = document.createElement('button');
+        toggleButton.className = 'toggle-button';
+        toggleButton.textContent = '收合';
+        actionSection.appendChild(toggleButton);
+
+        toggleButton.addEventListener('click', () => {
+            actionSection.classList.toggle('collapsed');
+            toggleButton.textContent = actionSection.classList.contains('collapsed') ? '展開' : '收合';
+        });
+
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('real-time').textContent = timeString;
+        }
+        
+        // 初始更新時間
+        updateTime();
+        
+        // 每秒更新一次時間
+        setInterval(updateTime, 1000);
+        
+        // 為行動按鈕添加簡單的點擊效果
+        document.querySelectorAll('.action-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // 在實際遊戲中，這裡會觸發相應的遊戲邏輯
+                alert('選擇了行動: ' + this.textContent.trim());
+            });
+        });
+    </script>
+</body>
+</html>
