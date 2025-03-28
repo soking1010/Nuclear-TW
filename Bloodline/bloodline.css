@@ -1,0 +1,134 @@
+:root {
+    --bg-color: #000000;
+    --text-color: #00ff00;
+    --dim-text: #008800;
+    --highlight: #ffffff;
+    --warning: #ff6600;
+    --success: #00ff00;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Courier New', monospace;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.terminal {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.header {
+    border-bottom: 1px solid var(--text-color);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.section {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid var(--dim-text);
+}
+
+.section-title {
+    color: var(--highlight);
+    margin-bottom: 15px;
+}
+
+.gene-selection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.parent-section {
+    border: 1px solid var(--dim-text);
+    padding: 20px;
+    background-color: rgba(0, 136, 0, 0.1);
+}
+
+.gene-option {
+    margin: 10px 0;
+}
+
+select {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+    padding: 8px;
+    width: 100%;
+    margin-top: 8px;
+    font-size: 0.95em;
+}
+
+select optgroup {
+    color: var(--highlight);
+    font-style: normal;
+    padding: 5px 0;
+}
+
+select option {
+    color: var(--text-color);
+    padding: 5px;
+}
+
+.environment-selection select {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.generate-btn {
+    background-color: var(--dim-text);
+    color: var(--highlight);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.generate-btn:hover {
+    background-color: var(--text-color);
+}
+
+.result {
+    margin-top: 30px;
+    padding: 15px;
+    border: 1px solid var(--text-color);
+    display: none;
+}
+
+.typing-effect {
+    overflow: hidden;
+    border-right: 2px solid var(--text-color);
+    white-space: nowrap;
+    margin: 0;
+    animation: typing 3.5s steps(40, end),
+               blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--text-color) }
+}
+
+.status-line {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    padding: 5px 20px;
+    font-size: 0.9em;
+}

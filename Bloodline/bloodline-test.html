@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>血脈傳承測試系統</title>
+    <link rel="stylesheet" href="bloodline.css">
+</head>
+<body>
+    <div class="terminal">
+        <div class="header">
+            血脈傳承測試系統 v1.0.0
+        </div>
+
+        <div class="section gene-selection">
+            <div class="parent-section">
+                <div class="section-title">父系基因</div>
+                <div class="gene-option">
+                    <label>顯性基因：</label>
+                    <select id="father-dominant">
+                        <optgroup label="器官穩定度">
+                            <option value="heart_fragile">心臟脆弱 - 運動負荷時易猝死</option>
+                            <option value="lung_strong">肺部強健 - 提高耐力與呼吸效率</option>
+                        </optgroup>
+                        <optgroup label="體質特異性">
+                            <option value="radiation_resist">抗輻射體質 - 在高輻射地區生存時間延長</option>
+                            <option value="immune_abnormal">異常免疫系統 - 降低疾病感染率</option>
+                        </optgroup>
+                        <optgroup label="疾病易感性">
+                            <option value="mental_fragile">精神脆弱 - 易中邪或發瘋，靈能覺醒機率提高</option>
+                            <option value="chronic_carrier">慢性病攜帶者 - 壽命縮短、需要長期醫療資源</option>
+                        </optgroup>
+                        <optgroup label="突變能力">
+                            <option value="night_vision">夜視眼 - 夜間探索無視光源限制</option>
+                            <option value="muscle_mutation">異常肌肉 - 攻擊力提升，但體型異常</option>
+                        </optgroup>
+                        <optgroup label="七宗罪因子">
+                            <option value="sin_gluttony">暴食基因 - 獲得過載恢復效果</option>
+                            <option value="sin_greed">貪婪基因 - 拾取資源量提升</option>
+                            <option value="sin_wrath">憤怒血統 - 戰鬥時進入暴走狀態</option>
+                            <option value="sin_pride">傲慢潛質 - 聲望成長加快，但易觸怒他人</option>
+                            <option value="sin_envy">嫉妒心深 - 與同儕互動時易產生敵意</option>
+                            <option value="sin_sloth">怠惰體質 - 每日行動次數減少，但回復速度大幅提升</option>
+                            <option value="sin_lust">色慾氣質 - 魅力上升，易引發情感糾葛</option>
+                        </optgroup>
+                        <optgroup label="情緒突變">
+                            <option value="emotion_anger">七情過盛：怒 - 進入戰鬥時容易失控</option>
+                            <option value="emotion_sorrow">七情過盛：悲 - 獲得預感死亡能力</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="gene-option">
+                    <label>隱性基因 1：</label>
+                    <select id="father-recessive-1">
+                        <optgroup label="經脈異化">
+                            <option value="meridian_du">督脈活化 - 戰鬥中可釋放陽氣</option>
+                            <option value="meridian_ren">任脈活化 - 靜止休息時回復加倍</option>
+                            <option value="meridian_lung">肺經靈化 - 對空氣污染免疫</option>
+                            <option value="meridian_heart">心包經異動 - 強化心靈感應</option>
+                            <option value="meridian_chong">衝脈共鳴 - 可觸發經脈暴走</option>
+                            <option value="meridian_dai">帶脈鬆動 - 身體容易走火入魔</option>
+                            <option value="meridian_yin">陰維脈潰散 - 陰性能量失衡</option>
+                            <option value="meridian_yang">陽維脈異動 - 陽氣溢散</option>
+                            <option value="meridian_yin_heel">陰蹻脈覺醒 - 夜間靈能穩定</option>
+                            <option value="meridian_yang_heel">陽蹻脈激發 - 白天體能提高</option>
+                        </optgroup>
+                        <optgroup label="臟腑異變">
+                            <option value="organ_heart">心火偏盛 - 靈能敏感但精神波動大</option>
+                            <option value="organ_liver">肝氣逆亂 - 情緒起伏大，易暴怒</option>
+                            <option value="organ_spleen">脾虛失運 - 體力低但思緒細膩</option>
+                            <option value="organ_lung">肺氣虛寒 - 易染病但靈異敏感</option>
+                            <option value="organ_kidney">腎水枯竭 - 生命力衰退但靈感提升</option>
+                            <option value="organ_gallbladder">膽氣不足 - 容易恐懼但直覺敏銳</option>
+                            <option value="organ_stomach">胃氣虛弱 - 需要特殊食物維生</option>
+                            <option value="organ_small_intestine">小腸失調 - 吸收異常但可消化特殊物質</option>
+                        </optgroup>
+                        <optgroup label="六慾異化">
+                            <option value="desire_food">食慾異常 - 可以吞食任何物質</option>
+                            <option value="desire_sleep">睡慾紊亂 - 不分晝夜的嗜睡症</option>
+                            <option value="desire_lust">色慾過盛 - 極易陷入情感糾葛</option>
+                            <option value="desire_greed">貪慾膨脹 - 對資源有強烈渴望</option>
+                            <option value="desire_comfort">安逸成癮 - 休息效果加倍但容易懈怠</option>
+                            <option value="desire_power">權慾擴張 - 渴望掌控但易失控</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="gene-option">
+                    <label>隱性基因 2：</label>
+                    <select id="father-recessive-2">
+                        <optgroup label="經脈異化">
+                            <option value="meridian_du">督脈活化 - 戰鬥中可釋放陽氣</option>
+                            <option value="meridian_ren">任脈活化 - 靜止休息時回復加倍</option>
+                            <option value="meridian_lung">肺經靈化 - 對空氣污染免疫</option>
+                            <option value="meridian_heart">心包經異動 - 強化心靈感應</option>
+                            <option value="meridian_chong">衝脈共鳴 - 可觸發經脈暴走</option>
+                            <option value="meridian_dai">帶脈鬆動 - 身體容易走火入魔</option>
+                            <option value="meridian_yin">陰維脈潰散 - 陰性能量失衡</option>
+                            <option value="meridian_yang">陽維脈異動 - 陽氣溢散</option>
+                            <option value="meridian_yin_heel">陰蹻脈覺醒 - 夜間靈能穩定</option>
+                            <option value="meridian_yang_heel">陽蹻脈激發 - 白天體能提高</option>
+                        </optgroup>
+                        <optgroup label="臟腑異變">
+                            <option value="organ_heart">心火偏盛 - 靈能敏感但精神波動大</option>
+                            <option value="organ_liver">肝氣逆亂 - 情緒起伏大，易暴怒</option>
+                            <option value="organ_spleen">脾虛失運 - 體力低但思緒細膩</option>
+                            <option value="organ_lung">肺氣虛寒 - 易染病但靈異敏感</option>
+                            <option value="organ_kidney">腎水枯竭 - 生命力衰退但靈感提升</option>
+                            <option value="organ_gallbladder">膽氣不足 - 容易恐懼但直覺敏銳</option>
+                            <option value="organ_stomach">胃氣虛弱 - 需要特殊食物維生</option>
+                            <option value="organ_small_intestine">小腸失調 - 吸收異常但可消化特殊物質</option>
+                        </optgroup>
+                        <optgroup label="六慾異化">
+                            <option value="desire_food">食慾異常 - 可以吞食任何物質</option>
+                            <option value="desire_sleep">睡慾紊亂 - 不分晝夜的嗜睡症</option>
+                            <option value="desire_lust">色慾過盛 - 極易陷入情感糾葛</option>
+                            <option value="desire_greed">貪慾膨脹 - 對資源有強烈渴望</option>
+                            <option value="desire_comfort">安逸成癮 - 休息效果加倍但容易懈怠</option>
+                            <option value="desire_power">權慾擴張 - 渴望掌控但易失控</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+            <div class="parent-section">
+                <div class="section-title">母系基因</div>
+                <div class="gene-option">
+                    <label>顯性基因：</label>
+                    <select id="mother-dominant">
+                        <optgroup label="器官穩定度">
+                            <option value="heart_fragile">心臟脆弱 - 運動負荷時易猝死</option>
+                            <option value="lung_strong">肺部強健 - 提高耐力與呼吸效率</option>
+                        </optgroup>
+                        <optgroup label="體質特異性">
+                            <option value="radiation_resist">抗輻射體質 - 在高輻射地區生存時間延長</option>
+                            <option value="immune_abnormal">異常免疫系統 - 降低疾病感染率</option>
+                        </optgroup>
+                        <optgroup label="疾病易感性">
+                            <option value="mental_fragile">精神脆弱 - 易中邪或發瘋，靈能覺醒機率提高</option>
+                            <option value="chronic_carrier">慢性病攜帶者 - 壽命縮短、需要長期醫療資源</option>
+                        </optgroup>
+                        <optgroup label="突變能力">
+                            <option value="night_vision">夜視眼 - 夜間探索無視光源限制</option>
+                            <option value="muscle_mutation">異常肌肉 - 攻擊力提升，但體型異常</option>
+                        </optgroup>
+                        <optgroup label="七宗罪因子">
+                            <option value="sin_gluttony">暴食基因 - 獲得過載恢復效果</option>
+                            <option value="sin_greed">貪婪基因 - 拾取資源量提升</option>
+                            <option value="sin_wrath">憤怒血統 - 戰鬥時進入暴走狀態</option>
+                            <option value="sin_pride">傲慢潛質 - 聲望成長加快，但易觸怒他人</option>
+                            <option value="sin_envy">嫉妒心深 - 與同儕互動時易產生敵意</option>
+                            <option value="sin_sloth">怠惰體質 - 每日行動次數減少，但回復速度大幅提升</option>
+                            <option value="sin_lust">色慾氣質 - 魅力上升，易引發情感糾葛</option>
+                        </optgroup>
+                        <optgroup label="情緒突變">
+                            <option value="emotion_anger">七情過盛：怒 - 進入戰鬥時容易失控</option>
+                            <option value="emotion_sorrow">七情過盛：悲 - 獲得預感死亡能力</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="gene-option">
+                    <label>隱性基因 1：</label>
+                    <select id="mother-recessive-1">
+                        <optgroup label="經脈異化">
+                            <option value="meridian_du">督脈活化 - 戰鬥中可釋放陽氣</option>
+                            <option value="meridian_ren">任脈活化 - 靜止休息時回復加倍</option>
+                            <option value="meridian_lung">肺經靈化 - 對空氣污染免疫</option>
+                            <option value="meridian_heart">心包經異動 - 強化心靈感應</option>
+                            <option value="meridian_chong">衝脈共鳴 - 可觸發經脈暴走</option>
+                            <option value="meridian_dai">帶脈鬆動 - 身體容易走火入魔</option>
+                            <option value="meridian_yin">陰維脈潰散 - 陰性能量失衡</option>
+                            <option value="meridian_yang">陽維脈異動 - 陽氣溢散</option>
+                            <option value="meridian_yin_heel">陰蹻脈覺醒 - 夜間靈能穩定</option>
+                            <option value="meridian_yang_heel">陽蹻脈激發 - 白天體能提高</option>
+                        </optgroup>
+                        <optgroup label="臟腑異變">
+                            <option value="organ_heart">心火偏盛 - 靈能敏感但精神波動大</option>
+                            <option value="organ_liver">肝氣逆亂 - 情緒起伏大，易暴怒</option>
+                            <option value="organ_spleen">脾虛失運 - 體力低但思緒細膩</option>
+                            <option value="organ_lung">肺氣虛寒 - 易染病但靈異敏感</option>
+                            <option value="organ_kidney">腎水枯竭 - 生命力衰退但靈感提升</option>
+                            <option value="organ_gallbladder">膽氣不足 - 容易恐懼但直覺敏銳</option>
+                            <option value="organ_stomach">胃氣虛弱 - 需要特殊食物維生</option>
+                            <option value="organ_small_intestine">小腸失調 - 吸收異常但可消化特殊物質</option>
+                        </optgroup>
+                        <optgroup label="六慾異化">
+                            <option value="desire_food">食慾異常 - 可以吞食任何物質</option>
+                            <option value="desire_sleep">睡慾紊亂 - 不分晝夜的嗜睡症</option>
+                            <option value="desire_lust">色慾過盛 - 極易陷入情感糾葛</option>
+                            <option value="desire_greed">貪慾膨脹 - 對資源有強烈渴望</option>
+                            <option value="desire_comfort">安逸成癮 - 休息效果加倍但容易懈怠</option>
+                            <option value="desire_power">權慾擴張 - 渴望掌控但易失控</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="gene-option">
+                    <label>隱性基因 2：</label>
+                    <select id="mother-recessive-2">
+                        <optgroup label="經脈異化">
+                            <option value="meridian_du">督脈活化 - 戰鬥中可釋放陽氣</option>
+                            <option value="meridian_ren">任脈活化 - 靜止休息時回復加倍</option>
+                            <option value="meridian_lung">肺經靈化 - 對空氣污染免疫</option>
+                            <option value="meridian_heart">心包經異動 - 強化心靈感應</option>
+                            <option value="meridian_chong">衝脈共鳴 - 可觸發經脈暴走</option>
+                            <option value="meridian_dai">帶脈鬆動 - 身體容易走火入魔</option>
+                            <option value="meridian_yin">陰維脈潰散 - 陰性能量失衡</option>
+                            <option value="meridian_yang">陽維脈異動 - 陽氣溢散</option>
+                            <option value="meridian_yin_heel">陰蹻脈覺醒 - 夜間靈能穩定</option>
+                            <option value="meridian_yang_heel">陽蹻脈激發 - 白天體能提高</option>
+                        </optgroup>
+                        <optgroup label="臟腑異變">
+                            <option value="organ_heart">心火偏盛 - 靈能敏感但精神波動大</option>
+                            <option value="organ_liver">肝氣逆亂 - 情緒起伏大，易暴怒</option>
+                            <option value="organ_spleen">脾虛失運 - 體力低但思緒細膩</option>
+                            <option value="organ_lung">肺氣虛寒 - 易染病但靈異敏感</option>
+                            <option value="organ_kidney">腎水枯竭 - 生命力衰退但靈感提升</option>
+                            <option value="organ_gallbladder">膽氣不足 - 容易恐懼但直覺敏銳</option>
+                            <option value="organ_stomach">胃氣虛弱 - 需要特殊食物維生</option>
+                            <option value="organ_small_intestine">小腸失調 - 吸收異常但可消化特殊物質</option>
+                        </optgroup>
+                        <optgroup label="六慾異化">
+                            <option value="desire_food">食慾異常 - 可以吞食任何物質</option>
+                            <option value="desire_sleep">睡慾紊亂 - 不分晝夜的嗜睡症</option>
+                            <option value="desire_lust">色慾過盛 - 極易陷入情感糾葛</option>
+                            <option value="desire_greed">貪慾膨脹 - 對資源有強烈渴望</option>
+                            <option value="desire_comfort">安逸成癮 - 休息效果加倍但容易懈怠</option>
+                            <option value="desire_power">權慾擴張 - 渴望掌控但易失控</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="section environment-selection">
+            <div class="section-title">顯性特徵</div>
+            <div>
+                <label>出生地區：</label>
+                <select id="birth-location">
+                    <option value="taipei">大台北廢墟</option>
+                    <option value="taichung">中部輻射區</option>
+                    <option value="kaohsiung">南方科技城</option>
+                    <option value="east">東部靈能聖地</option>
+                </select>
+            </div>
+            <div>
+                <label>輻射程度：</label>
+                <select id="radiation-level">
+                    <option value="low">低度輻射</option>
+                    <option value="medium">中度輻射</option>
+                    <option value="high">高度輻射</option>
+                </select>
+            </div>
+            <div>
+                <label>靈能場強度：</label>
+                <select id="psionic-field">
+                    <option value="weak">微弱</option>
+                    <option value="moderate">中等</option>
+                    <option value="strong">強烈</option>
+                </select>
+            </div>
+            <div>
+                <label>特殊事件：</label>
+                <select id="special-event">
+                    <option value="none">無</option>
+                    <optgroup label="三屍神宿主">
+                        <option value="upper_corpse">上尸附體：彭倍 - 可能獲得詭異知識</option>
+                        <option value="middle_corpse">中尸附體：彭質 - 可能提升靈能傷害</option>
+                        <option value="lower_corpse">下尸附體：彭矫 - 可能獲得野獸本能</option>
+                    </optgroup>
+                    <optgroup label="靈能潛質">
+                        <option value="heaven_soul">天魂共鳴 - 可能獲得遠古記憶</option>
+                        <option value="earth_soul">地魂凝鍊 - 可能提升靈能穩定</option>
+                        <option value="fate_soul">命魂裂變 - 可能分裂意識</option>
+                        <option value="summon_soul">招魂體質 - 可能溝通死者</option>
+                        <option value="foresight">預知潛能 - 可能預見未來</option>
+                    </optgroup>
+                    <optgroup label="七魄躁動">
+                        <option value="corpse_dog">屍狗之魄 - 可能獲得死亡感知</option>
+                        <option value="dark_bird">雀陰之魄 - 可能獲得真偽辨識</option>
+                        <option value="swallow_thief">吞賊之魄 - 可能獲得能力剝奪</option>
+                    </optgroup>
+                    <optgroup label="血脈異變">
+                        <option value="blood_ritual">源血融合 - 可能獲得混合體質</option>
+                        <option value="spirit_cleanse">靈根淨化 - 可能去除不良突變</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+
+        <button class="generate-btn" onclick="generateResult()">生成血脈傳承結果</button>
+
+        <div id="result" class="result">
+            <div class="section-title">基因分析結果</div>
+            <div id="analysis-result"></div>
+        </div>
+    </div>
+
+    <div class="status-line">
+        系統狀態: 就绪 | 基因庫: 已連接 | 分析引擎: 運行中
+    </div>
+
+    <script src="bloodline.js"></script>
+</body>
+</html>
