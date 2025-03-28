@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>血脈傳承測試系統 - 首頁</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .terminal {
+            border: 1px solid #00ff00;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        a {
+            color: #00ff00;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .command {
+            margin-bottom: 10px;
+        }
+
+        .prompt::before {
+            content: "$ ";
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="terminal">
+            <h1>歡迎來到血脈傳承測試系統</h1>
+            
+            <div class="command">
+                <p class="prompt">系統載入中...</p>
+                <p>初始化完成。歡迎使用血脈傳承測試系統。</p>
+            </div>
+
+            <div class="command">
+                <p class="prompt">系統說明：</p>
+                <p>本系統用於測試和分析血脈傳承能力，通過一系列專業測試來評估您的潛在能力。</p>
+            </div>
+
+            <div class="command">
+                <p class="prompt">可用命令：</p>
+                <p><a href="bloodline/bloodline-test.html">開始測試 >> bloodline/bloodline-test.html</a></p>
+            </div>
+
+            <div class="command">
+                <p class="prompt">系統狀態：在線<span class="cursor">_</span></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
